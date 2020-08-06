@@ -68,7 +68,7 @@ public class InsurancePolicy extends BaseEntity{
         this.insuredValue = insuredValue;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     public Client getClient() {
         return client;
     }
@@ -77,7 +77,7 @@ public class InsurancePolicy extends BaseEntity{
         this.client = client;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     public Car getCar() {
         return car;
     }

@@ -13,6 +13,4 @@ public interface PolicyRepository extends JpaRepository<InsurancePolicy, Long> {
     PolicyViewModel findByClientLastName(String lastName);
 
     void deleteInsurancePolicyByPolicyNumber(String number);
-
-
 }

@@ -94,8 +94,6 @@ public class PolicyServiceImpl implements PolicyService {
 
         InsurancePolicy policy = this.policyRepository.findByPolicyNumber(policyNumber);
 
-        policy = this.modelMapper.map(model, InsurancePolicy.class);
-
         HomeAddress address = new HomeAddress();
         Car car = new Car();
         Client client = new Client();
@@ -112,13 +110,14 @@ public class PolicyServiceImpl implements PolicyService {
                 ? this.modelMapper.map(model, Client.class)
                 : this.clientRepository.findByPhoneNumber(model.getPhoneNumber());
 
-        System.out.println();
-
         client.setAddress(address);
         policy.setCar(car);
         policy.setClient(client);
         policy.setStartDate(model.getDate());
         policy.setEndDate(model.getDate().plusYears(1L));
+        policy.setPolicyNumber(model.getPolicyNumber());
+        policy.setPremium(model.getPremium());
+        policy.setInsuredValue(model.getInsuredValue());
 
         this.homeAddressRepository.saveAndFlush(address);
         this.carRepository.saveAndFlush(car);
