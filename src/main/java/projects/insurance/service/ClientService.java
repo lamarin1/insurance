@@ -1,5 +1,6 @@
 package projects.insurance.service;
 
+import projects.insurance.domain.entities.Client;
 import projects.insurance.domain.serviceModels.ClientServiceModel;
 import projects.insurance.domain.viewModels.ClientViewModel;
 
@@ -11,7 +12,7 @@ public interface ClientService {
 
     void deleteClient(Long id);
 
-    List<ClientViewModel> findAllClients();
+    List<Client> findAllClients();
 
     ClientViewModel findByFirstName(String firstName);
 

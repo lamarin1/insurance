@@ -36,8 +36,8 @@ public class ClientServiceImpl implements ClientService {
 
     //TODO find method
     @Override
-    public List<ClientViewModel> findAllClients() {
-        return null;
+    public List<Client> findAllClients() {
+        return this.clientRepository.findAll();
     }
 
     @Override

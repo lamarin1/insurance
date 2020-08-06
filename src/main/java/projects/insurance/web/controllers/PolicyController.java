@@ -81,7 +81,6 @@ public class PolicyController {
     public String edit(@PathVariable String id, @Valid @ModelAttribute("model")
             EditPolicyBidingModel model) {
 
-
         this.policyService.editPolicy(id, model);
 
         return "redirect:/home";

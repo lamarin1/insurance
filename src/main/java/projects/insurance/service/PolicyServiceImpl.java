@@ -89,6 +89,12 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
+    public List<InsurancePolicy> findAllByClientId(Long id) {
+        return this.policyRepository.findAllByClientId(id);
+    }
+
+
+    @Override
     @Transient
     public void editPolicy(String policyNumber, EditPolicyBidingModel model) {
 

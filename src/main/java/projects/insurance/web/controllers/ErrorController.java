@@ -10,7 +10,7 @@ public class ErrorController {
     @GetMapping("/error")
     public ModelAndView error(ModelAndView model){
 
-        model.addObject("error");
+        model.setViewName("error");
 
         return model;
 

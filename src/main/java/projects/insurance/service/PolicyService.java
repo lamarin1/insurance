@@ -15,6 +15,8 @@ public interface PolicyService {
 
     InsurancePolicy findPolicyByNumber(String number);
 
+    List<InsurancePolicy> findAllByClientId(Long id);
+
     void editPolicy(String policyNumber, EditPolicyBidingModel model);
 
     void deletePolicyByNumber(String number);
