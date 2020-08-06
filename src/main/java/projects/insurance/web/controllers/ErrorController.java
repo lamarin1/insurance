@@ -15,5 +15,4 @@ public class ErrorController {
         return model;
 
     }
-
 }

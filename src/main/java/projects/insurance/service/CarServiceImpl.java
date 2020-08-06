@@ -21,7 +21,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car findByDKN() {
-        return null;
+    public Car findByDKN(String dkn) {
+        return this.carRepository.findCarByDKN(dkn);
     }
 }

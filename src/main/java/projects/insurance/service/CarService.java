@@ -8,5 +8,5 @@ public interface CarService {
 
     List<Car> findAll();
 
-    Car findByDKN();
+    Car findByDKN(String dkn);
 }
