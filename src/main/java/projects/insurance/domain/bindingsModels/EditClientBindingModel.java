@@ -1,24 +1,13 @@
-package projects.insurance.domain.viewModels;
+package projects.insurance.domain.bindingsModels;
 
-import projects.insurance.domain.entities.HomeAddress;
+public class EditClientBindingModel {
 
-public class ClientViewModel {
-
-    private Long id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
-    private HomeAddress address;
+    private String address;
 
-    public ClientViewModel() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public EditClientBindingModel() {
     }
 
     public String getFirstName() {
@@ -45,11 +34,11 @@ public class ClientViewModel {
         this.phoneNumber = phoneNumber;
     }
 
-    public HomeAddress getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(HomeAddress address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 }

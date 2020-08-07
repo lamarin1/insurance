@@ -34,7 +34,7 @@ public class Client extends BaseEntity{
         this.lastName = lastName;
     }
 
-    @Column(name = "phone_number", nullable = false, unique = true)
+    @Column(name = "phone_number", nullable = false)
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -43,7 +43,7 @@ public class Client extends BaseEntity{
         this.phoneNumber = phoneNumber;
     }
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne
     public HomeAddress getAddress() {
         return address;
     }

@@ -3,15 +3,15 @@ package projects.insurance.web.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import projects.insurance.domain.bindingsModels.EditPolicyBidingModel;
 import projects.insurance.domain.bindingsModels.UserLoginModel;
 import projects.insurance.domain.bindingsModels.UserRegisterModel;
 import projects.insurance.domain.entities.User;
 import projects.insurance.domain.serviceModels.UserServiceModel;
+import projects.insurance.service.ClientService;
 import projects.insurance.service.UserService;
 
 import javax.servlet.http.HttpSession;
@@ -23,11 +23,14 @@ public class UserController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
+    private final ClientService clientService;
 
     public UserController(UserService userService,
-                          ModelMapper modelMapper) {
+                          ModelMapper modelMapper,
+                          ClientService clientService) {
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.clientService = clientService;
     }
 
     @GetMapping("/login-form")
@@ -37,7 +40,7 @@ public class UserController {
 
     @PostMapping("/login-form")
     public String loginConfirm(@Valid @ModelAttribute("userLoginModel")
-                                           UserLoginModel userLoginModel,
+                                       UserLoginModel userLoginModel,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes,
                                HttpSession httpSession) {
@@ -68,7 +71,7 @@ public class UserController {
 
     @PostMapping("/register-form")
     public String registerConfirm(@Valid @ModelAttribute("userRegisterBindingModel")
-                                              UserRegisterModel userRegisterBindingModel,
+                                          UserRegisterModel userRegisterBindingModel,
                                   BindingResult bindingResult) {
 
         if (bindingResult.hasErrors() ||

@@ -1,6 +1,5 @@
 package projects.insurance.web.controllers;
 
-import org.dom4j.rule.Mode;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -78,7 +77,8 @@ public class PolicyController {
     }
 
     @PostMapping("/edit/{id}")
-    public String edit(@PathVariable String id, @Valid @ModelAttribute("model")
+    public String edit(@PathVariable String id,
+                       @Valid @ModelAttribute("model")
             EditPolicyBidingModel model) {
 
         this.policyService.editPolicy(id, model);

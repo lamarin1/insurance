@@ -2,10 +2,13 @@ package projects.insurance.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import projects.insurance.domain.bindingsModels.EditClientBindingModel;
 import projects.insurance.domain.entities.Client;
+import projects.insurance.domain.entities.HomeAddress;
 import projects.insurance.domain.serviceModels.ClientServiceModel;
 import projects.insurance.domain.viewModels.ClientViewModel;
 import projects.insurance.repositories.ClientRepository;
+import projects.insurance.repositories.HomeAddressRepository;
 
 import java.util.List;
 
@@ -14,13 +17,15 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final ModelMapper modelMapper;
+    private final HomeAddressRepository homeAddressRepository;
 
     public ClientServiceImpl(ClientRepository clientRepository,
-                             ModelMapper modelMapper) {
+                             ModelMapper modelMapper,
+                             HomeAddressRepository homeAddressRepository) {
         this.clientRepository = clientRepository;
         this.modelMapper = modelMapper;
+        this.homeAddressRepository = homeAddressRepository;
     }
-
 
     @Override
     public void addClient(ClientServiceModel model) {
@@ -34,7 +39,6 @@ public class ClientServiceImpl implements ClientService {
         this.clientRepository.deleteById(id);
     }
 
-    //TODO find method
     @Override
     public List<Client> findAllClients() {
         return this.clientRepository.findAll();
@@ -48,5 +52,36 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientViewModel findByLastName(String lastName) {
         return this.clientRepository.findClientByLastName(lastName);
+    }
+
+    @Override
+    public ClientViewModel findClientById(Long id) {
+        return this.modelMapper
+                .map(this.clientRepository.findById(id), ClientViewModel.class);
+    }
+
+    @Override
+    public void editClient(String phoneNumber, EditClientBindingModel model) {
+
+        Client client = this.modelMapper
+                .map(this.clientRepository.findByPhoneNumber(phoneNumber), Client.class);
+
+        HomeAddress address = new HomeAddress();
+
+        address = this.homeAddressRepository.findByAddress(model.getAddress().toString()) == null
+                ? this.modelMapper.map(model, HomeAddress.class)
+                : this.homeAddressRepository.findByAddress(model.getAddress().toString());
+
+        this.modelMapper.map(model, HomeAddress.class);
+
+        client.setFirstName(model.getFirstName());
+        client.setLastName(model.getLastName());
+        client.setPhoneNumber(model.getPhoneNumber());
+        client.setAddress(address);
+
+        System.out.println();
+
+        this.homeAddressRepository.saveAndFlush(address);
+        this.clientRepository.saveAndFlush(client);
     }
 }

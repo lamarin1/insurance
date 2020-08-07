@@ -62,7 +62,7 @@ public class Car extends BaseEntity {
         this.year = year;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     public List<InsurancePolicy> getPolicies() {
         return policies;
     }

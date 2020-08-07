@@ -29,7 +29,7 @@
     <tr th:if="${allpolicies.empty}">
         <td class="text-center"> No Policy Available</td>
     </tr>
-    <tr th:each="policy : ${allpolicies}"
+    <tr th:each="policy, iStat : ${allpolicies}"
         th:style="${iStat.odd} ? 'background: #f0f0f2;' : 'background: #ffffff;'">
 
         <td><span th:text="${policy.policyNumber}"> Policy Number </span></td>

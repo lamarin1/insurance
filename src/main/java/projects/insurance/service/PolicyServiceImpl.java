@@ -9,13 +9,12 @@ import projects.insurance.domain.entities.Client;
 import projects.insurance.domain.entities.HomeAddress;
 import projects.insurance.domain.entities.InsurancePolicy;
 import projects.insurance.domain.viewModels.PolicyViewModel;
+import projects.insurance.error.PolicyAlreadyExistException;
 import projects.insurance.repositories.CarRepository;
 import projects.insurance.repositories.ClientRepository;
 import projects.insurance.repositories.HomeAddressRepository;
 import projects.insurance.repositories.PolicyRepository;
 
-
-import javax.persistence.Transient;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +52,10 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     public void addPolicy(AddPolicyBindingModel model) {
 
+        if(this.policyRepository.findByPolicyNumber(model.getPolicyNumber()) != null){
+            throw new PolicyAlreadyExistException ("Policy with that number already exist!");
+        }
+
         InsurancePolicy policy = this.modelMapper.map(model, InsurancePolicy.class);
 
         HomeAddress address = new HomeAddress();
@@ -77,6 +80,8 @@ public class PolicyServiceImpl implements PolicyService {
         policy.setStartDate(model.getDate());
         policy.setEndDate(model.getDate().plusYears(1L));
 
+        System.out.println();
+
         this.homeAddressRepository.saveAndFlush(address);
         this.carRepository.saveAndFlush(car);
         this.clientRepository.saveAndFlush(client);
@@ -93,9 +98,7 @@ public class PolicyServiceImpl implements PolicyService {
         return this.policyRepository.findAllByClientId(id);
     }
 
-
     @Override
-    @Transient
     public void editPolicy(String policyNumber, EditPolicyBidingModel model) {
 
         InsurancePolicy policy = this.policyRepository.findByPolicyNumber(policyNumber);
@@ -124,6 +127,8 @@ public class PolicyServiceImpl implements PolicyService {
         policy.setPolicyNumber(model.getPolicyNumber());
         policy.setPremium(model.getPremium());
         policy.setInsuredValue(model.getInsuredValue());
+
+        System.out.println( );
 
         this.homeAddressRepository.saveAndFlush(address);
         this.carRepository.saveAndFlush(car);
