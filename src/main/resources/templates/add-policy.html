@@ -17,14 +17,16 @@
                 <h1 class="text-center text-dark mt-4">Add Policy</h1>
                 <hr class="hr-2 bg-dark w-25">
 
-                <div th:object="${addPolicyBindingModel}">
+                <div th:object="${model}">
 
-                    <label for="add-policyNumber" class="font-weight-bold ">Policy Number</label>
-                    <input type="text" class="form-control" name="policyNumber" id="add-policyNumber"
-                           th:value="*{policyNumber}">
-                    <th:block th:if="${#fields.hasErrors('policyNumber')}">
-                        <small style="color: red" th:errors="*{policyNumber}"></small>
-                    </th:block>
+                    <div>
+                        <label for="add-policyNumber" class="font-weight-bold ">Policy Number</label>
+                        <input type="text" class="form-control" name="policyNumber" id="add-policyNumber"
+                               >
+<!--                        <th:block th:if="${#fields.hasErrors('policyNumber')}">-->
+<!--                            <small style="color: red" th:errors="*{policyNumber}"></small>-->
+<!--                        </th:block>-->
+                    </div>
 
                     <label for="firstName" class="font-weight-bold">First Name</label>
                     <input type="text" class="form-control" name="firstName" id="firstName">
@@ -32,22 +34,26 @@
                     <label for="lastName" class="font-weight-bold">Last Name</label>
                     <input type="text" class="form-control" name="lastName" id="lastName">
 
-                    <label for="add-phoneNumber" class="font-weight-bold">Phone Number</label>
-                    <input type="text" class="form-control" name="phoneNumber" id="add-phoneNumber"
-                           th:value="*{phoneNumber}">
-                    <th:block th:if="${#fields.hasErrors('phoneNumber')}">
-                        <small style="color: red" th:errors="*{phoneNumber}"></small>
-                    </th:block>
+                    <div>
+                        <label for="add-phoneNumber" class="font-weight-bold">Phone Number</label>
+                        <input type="text" class="form-control" name="phoneNumber" id="add-phoneNumber"
+                               >
+<!--                        <th:block th:if="${#fields.hasErrors('phoneNumber')}">-->
+<!--                            <small style="color: red" th:errors="*{phoneNumber}"></small>-->
+<!--                        </th:block>-->
+                    </div>
 
                     <label for="address" class="font-weight-bold">Home Address</label>
                     <input type="text" class="form-control" name="address" id="address">
 
-                    <label for="add-make" class="font-weight-bold">Car Make</label>
-                    <input type="text" class="form-control" name="make" id="add-make"
-                           th:value="*{make}">
-                    <th:block th:if="${#fields.hasErrors('make')}">
-                        <small style="color: red" th:errors="*{make}"></small>
-                    </th:block>
+                    <div>
+                        <label for="add-make" class="font-weight-bold">Car Make</label>
+                        <input type="text" class="form-control" name="make" id="add-make"
+                               >
+<!--                        <th:block th:if="${#fields.hasErrors('make')}">-->
+<!--                            <small style="color: red" th:errors="*{make}"></small>-->
+<!--                        </th:block>-->
+                    </div>
 
                     <label for="model" class="font-weight-bold">Car Model</label>
                     <input type="text" class="form-control" name="model" id="model">
@@ -55,29 +61,35 @@
                     <label for="dkn" class="font-weight-bold">License Plate</label>
                     <input type="text" class="form-control" name="dkn" id="dkn">
 
-                    <label for="add-chassis" class="font-weight-bold">Chassis</label>
-                    <input type="text" class="form-control" name="chassis" id="add-chassis"
-                           th:value="*{chassis}">
-                    <th:block th:if="${#fields.hasErrors('chassis')}">
-                        <small style="color: red" th:errors="*{chassis}"></small>
-                    </th:block>
+                    <div>
+                        <label for="add-chassis" class="font-weight-bold">Chassis</label>
+                        <input type="text" class="form-control" name="chassis" id="add-chassis"
+                               >
+<!--                        <th:block th:if="${#fields.hasErrors('chassis')}">-->
+<!--                            <small style="color: red" th:errors="*{chassis}"></small>-->
+<!--                        </th:block>-->
+                    </div>
 
                     <label for="year" class="font-weight-bold">Car Year</label>
                     <input type="text" class="form-control" name="year" id="year">
 
-                    <label for="add-insuredValue" class="font-weight-bold">Insured Value</label>
-                    <input type="text" class="form-control" name="insuredValue" id="add-insuredValue"
-                           th:value="*{insuredValue}">
-                    <th:block th:if="${#fields.hasErrors('insuredValue')}">
-                        <small style="color: red" th:errors="*{insuredValue}"></small>
-                    </th:block>
+                    <div>
+                        <label for="add-insuredValue" class="font-weight-bold">Insured Value</label>
+                        <input type="text" class="form-control" name="insuredValue" id="add-insuredValue"
+                               >
+<!--                        <th:block th:if="${#fields.hasErrors('insuredValue')}">-->
+<!--                            <small style="color: red" th:errors="*{insuredValue}"></small>-->
+<!--                        </th:block>-->
+                    </div>
 
-                    <label for="add-premium" class="font-weight-bold">Premium</label>
-                    <input type="text" class="form-control" name="premium" id="add-premium"
-                           th:value="*{premium}">
-                    <th:block th:if="${#fields.hasErrors('premium')}">
-                        <small style="color: red" th:errors="*{premium}"></small>
-                    </th:block>
+                    <div>
+                        <label for="add-premium" class="font-weight-bold">Premium</label>
+                        <input type="text" class="form-control" name="premium" id="add-premium"
+                              >
+<!--                        <th:block th:if="${#fields.hasErrors('premium')}">-->
+<!--                            <small style="color: red" th:errors="*{premium}"></small>-->
+<!--                        </th:block>-->
+                    </div>
 
                     <div class="form-group">
                         <div class="form-group">

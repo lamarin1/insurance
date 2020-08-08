@@ -1,11 +1,13 @@
 package projects.insurance.web.controllers;
 
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import projects.insurance.domain.bindingsModels.AddPolicyBindingModel;
 import projects.insurance.domain.bindingsModels.EditPolicyBidingModel;
+import projects.insurance.error.PolicyAlreadyExistException;
 import projects.insurance.service.PolicyService;
 import projects.insurance.validation.PolicyAddValidator;
 
@@ -39,7 +41,7 @@ public class PolicyController {
     public ModelAndView addPolicies(@ModelAttribute("addPolicyBindingModel")
                                             AddPolicyBindingModel addPolicyBindingModel,
                                     ModelAndView model) {
-        model.addObject(model);
+
         model.setViewName("add-policy");
 
         return model;
@@ -94,5 +96,14 @@ public class PolicyController {
         this.policyService.editPolicy(id, model);
 
         return "redirect:/home";
+    }
+
+    @ExceptionHandler({PolicyAlreadyExistException.class})
+    public ModelAndView handlePolicyExist(PolicyAlreadyExistException e){
+        ModelAndView model = new ModelAndView("error");
+        model.addObject("message", e.getMessage());
+        model.addObject("statusCode", e.getStatusCode());
+
+        return model;
     }
 }

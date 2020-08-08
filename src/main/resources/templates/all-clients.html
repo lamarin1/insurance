@@ -31,7 +31,6 @@
             <td><span th:text="${client.firstName} + ' ' + ${client.lastName}"> Client's name </span></td>
             <td><span th:text="${client.address.getAddress()}"> Home Address </span></td>
             <td><span th:text="${client.phoneNumber}"> Phone Number </span></td>
-<!--            <td><span th:text="${#lists.size(client.getPolicies())}"> Number of Policies </span></td>-->
             <td>
                 <a class="text-dark text-center"
                    th:href="@{/all-clients-policies/{id}(id=${client.id})}">Client's policies</a>

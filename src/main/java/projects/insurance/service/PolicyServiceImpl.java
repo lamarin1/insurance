@@ -52,8 +52,8 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     public void addPolicy(AddPolicyBindingModel model) {
 
-        if(this.policyRepository.findByPolicyNumber(model.getPolicyNumber()) != null){
-            throw new PolicyAlreadyExistException ("Policy with that number already exist!");
+        if (this.policyRepository.findByPolicyNumber(model.getPolicyNumber()) != null) {
+            throw new PolicyAlreadyExistException("Policy with that number already exist!");
         }
 
         InsurancePolicy policy = this.modelMapper.map(model, InsurancePolicy.class);
@@ -128,8 +128,6 @@ public class PolicyServiceImpl implements PolicyService {
         policy.setPremium(model.getPremium());
         policy.setInsuredValue(model.getInsuredValue());
 
-        System.out.println( );
-
         this.homeAddressRepository.saveAndFlush(address);
         this.carRepository.saveAndFlush(car);
         this.clientRepository.saveAndFlush(client);
@@ -146,6 +144,4 @@ public class PolicyServiceImpl implements PolicyService {
     public void deletePolicyByID(Long id) {
         this.policyRepository.deleteById(id);
     }
-
-
 }

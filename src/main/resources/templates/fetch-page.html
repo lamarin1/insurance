@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="~{/common/head}"></th:block>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg bg-nav rounded">
+        <th:block th:include="~{/common/nav-bar}"></th:block>
+    </nav>
+</header>
+
+<div class="container-fluid">
+    <div class="button-holder">
+        <button id="clients-fetch-button" class="btn btn-info">Fetch clients</button>
+        <button id="cars-fetch-button" class="btn btn-info">Fetch cars</button>
+        <button id="clear-button" class="btn btn-info">Clear fetched data</button>
+    </div>
+</div>
+
+<table class="table">
+    <h1 class="text-center text-black-50">Fetched data about clients</h1>
+    <hr class="hr-2 bg-dark w-75">
+    <thead>
+    <tr>
+        <th> Client's name</th>
+        <th> Home Address</th>
+        <th> Phone Number</th>
+    </tr>
+    </thead>
+    <tbody class="clients-data-container text-black-50 text-center">
+    </tbody>
+</table>
+
+<table class="table">
+    <h1 class="text-center text-black-50">Fetched data about cars</h1>
+    <hr class="hr-2 bg-dark w-75">
+    <thead>
+    <tr>
+        <th> Car brand</th>
+        <th> Model</th>
+        <th> License plate number</th>
+        <th> Chassis</th>
+        <th> Year</th>
+    </tr>
+    </thead>
+    <tbody class="car-data-container text-black-50 text-center">
+    </tbody>
+</table>
+
+<script>
+    $('#clients-fetch-button').click(() => {
+
+        fetch('http://localhost:8070/fetch/clients')
+            .then((response) => response.json())
+            .then((json) => json.forEach(c => {
+
+                if (json.length === 0) {
+                    $('.clients-data-container').append('<td class="text-center"><span> No Clients Available </span></td>');
+                }
+
+                let row =
+                    '<tr>'
+                    + `<td><span> ${c.firstName}  ${c.lastName} </span></td>`
+                    + `<td><span> ${c.address.address} </span></td>`
+                    + `<td><span> ${c.phoneNumber} </span></td>`
+                    + '</tr>';
+
+                $('.clients-data-container').append(row);
+            }))
+            .catch(err => $('.data-container')
+                .append(`<tr></tr><td class="text-center text-black-50"><span> ${err} </span></td>`));
+    });
+
+    $('#cars-fetch-button').click(() => {
+
+        fetch('http://localhost:8070/fetch/cars')
+            .then((response) => response.json())
+            .then((json) => json.forEach(car => {
+
+                if (json.length === 0) {
+                    $('.car-data-container').append('<td class="text-center"><span> No Clients Available </span></td>');
+                }
+
+                let row =
+                    '<tr>'
+                    + `<td><span> ${car.make}</span></td>`
+                    + `<td><span> ${car.model}</span></td>`
+                    + `<td><span> ${car.dkn} </span></td>`
+                    + `<td><span> ${car.chassis} </span></td>`
+                    + `<td><span> ${car.year} </span></td>`
+                    + '</tr>';
+
+                $('.car-data-container').append(row);
+            }))
+            .catch(err => $('.data-container')
+                .append(`<tr></tr><td class="text-center text-black-50"><span> ${err} </span></td>`));
+    });
+
+    $('#clear-button')
+        .click(() => {
+            $('.car-data-container').empty();
+            $('.clients-data-container').empty();
+        });
+
+</script>
+
+<footer class="footer bg-transparent  py-2">
+    <th:block th:include="~{/common/footer}"></th:block>
+</footer>
+
+</body>
+</html>
