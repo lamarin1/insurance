@@ -22,6 +22,10 @@ public class PolicyAddValidator implements Validator {
 
         AddPolicyBindingModel model = (AddPolicyBindingModel) o;
 
+        if(this.repository.findByPolicyNumber(model.getPolicyNumber()) != null){
+            errors.rejectValue("policyNumber", "Policy with this number already exist!");
+        }
+
         if (model.getPolicyNumber() == null) {
             errors.rejectValue("policyNumber", "Policy number can't be empty!");
         }

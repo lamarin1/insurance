@@ -55,7 +55,6 @@ public class PolicyController {
 
         this.validator.validate(addPolicyBindingModel, bindingResult);
 
-
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("addPolicyBindingModel", addPolicyBindingModel);
             modelAndView.setViewName("add-policy");
@@ -100,7 +99,7 @@ public class PolicyController {
 
     @ExceptionHandler({PolicyAlreadyExistException.class})
     public ModelAndView handlePolicyExist(PolicyAlreadyExistException e){
-        ModelAndView model = new ModelAndView("error");
+        ModelAndView model = new ModelAndView("/error");
         model.addObject("message", e.getMessage());
         model.addObject("statusCode", e.getStatusCode());
 
