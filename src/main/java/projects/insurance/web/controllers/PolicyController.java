@@ -92,6 +92,8 @@ public class PolicyController {
                        @Valid @ModelAttribute("model")
                                EditPolicyBidingModel model) {
 
+
+
         this.policyService.editPolicy(id, model);
 
         return "redirect:/home";

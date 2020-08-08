@@ -22,32 +22,32 @@ public class PolicyAddValidator implements Validator {
 
         AddPolicyBindingModel model = (AddPolicyBindingModel) o;
 
-        if(this.repository.findByPolicyNumber(model.getPolicyNumber()) != null){
-            errors.rejectValue("policyNumber", "Policy with this number already exist!");
+        if (this.repository.findByPolicyNumber(model.getPolicyNumber()) != null) {
+            errors.rejectValue("policyNumber", "Policy with this number already exist!", "Policy with this number already exist!");
         }
 
         if (model.getPolicyNumber() == null) {
-            errors.rejectValue("policyNumber", "Policy number can't be empty!");
+            errors.rejectValue("policyNumber", "Policy number can't be empty!", "Policy number can't be empty!");
         }
 
         if (model.getPhoneNumber().length() < 9 || model.getPhoneNumber() == null) {
-            errors.rejectValue("phoneNumber", "Phone number should be correct length between 9 and 15 digits!");
+            errors.rejectValue("phoneNumber", "Phone number not correct", "Phone number should be correct length between 9 and 15 digits!");
         }
 
         if (model.getPremium() < 1) {
-            errors.rejectValue("premium", "Premium should be a positive number!");
+            errors.rejectValue("premium", "Premium not correct", "Premium should be a positive number!");
         }
 
         if (model.getChassis().length() != 17) {
-            errors.rejectValue("chassis", "The VIN number should be exactly 17 digits!");
+            errors.rejectValue("chassis", "VIN not correct", "The VIN number should be exactly 17 digits!");
         }
 
         if (model.getInsuredValue() < 1) {
-            errors.rejectValue("insuredValue", "Insured Value can not be empty!");
+            errors.rejectValue("insuredValue", "Value not correct", "Insured Value can not be empty!");
         }
 
         if (model.getMake() == null) {
-            errors.rejectValue("make", "Car brand can not be empty!");
+            errors.rejectValue("make", "Make not correct", "Car brand can not be empty!");
         }
     }
 
