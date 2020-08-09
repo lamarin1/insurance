@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserServiceModel register(UserServiceModel userServiceModel) {
+
         User user = this.modelMapper.map(userServiceModel, User.class);
 
         return this.modelMapper
@@ -34,9 +35,6 @@ public class UserServiceImpl implements UserService {
                 .map(user -> this.modelMapper.map(user, User.class))
                 .orElse(null);
     }
-
-    //TODO find methods
-
 
     @Override
     public List<UserServiceModel> findAllUsers() {

@@ -16,6 +16,7 @@ import projects.insurance.repositories.HomeAddressRepository;
 import projects.insurance.repositories.PolicyRepository;
 
 import javax.transaction.Transactional;
+import java.beans.Transient;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,10 +53,6 @@ public class PolicyServiceImpl implements PolicyService {
     @Override
     public void addPolicy(AddPolicyBindingModel model) {
 
-        if (this.policyRepository.findByPolicyNumber(model.getPolicyNumber()) != null) {
-            throw new PolicyAlreadyExistException("Policy with that number already exist!");
-        }
-
         InsurancePolicy policy = this.modelMapper.map(model, InsurancePolicy.class);
 
         HomeAddress address = new HomeAddress();
@@ -80,8 +77,6 @@ public class PolicyServiceImpl implements PolicyService {
         policy.setStartDate(model.getDate());
         policy.setEndDate(model.getDate().plusYears(1L));
 
-        System.out.println();
-
         this.homeAddressRepository.saveAndFlush(address);
         this.carRepository.saveAndFlush(car);
         this.clientRepository.saveAndFlush(client);
@@ -99,6 +94,7 @@ public class PolicyServiceImpl implements PolicyService {
     }
 
     @Override
+    @Transient
     public void editPolicy(String policyNumber, EditPolicyBidingModel model) {
 
         InsurancePolicy policy = this.policyRepository.findByPolicyNumber(policyNumber);
@@ -107,19 +103,32 @@ public class PolicyServiceImpl implements PolicyService {
         Car car = new Car();
         Client client = new Client();
 
-        address = this.homeAddressRepository.findByAddress(model.getAddress()) == null
+        address = !this.homeAddressRepository.findByAddress(model.getAddress())
+                .equals(this.modelMapper.map(model, HomeAddress.class))
+
                 ? this.modelMapper.map(model, HomeAddress.class)
                 : this.homeAddressRepository.findByAddress(model.getAddress());
 
-        car = this.carRepository.findCarByDKN(model.getDkn()) == null
+
+        car = !this.carRepository.findCarByDKN(model.getDkn())
+                .equals(this.modelMapper.map(model, Car.class))
+
                 ? this.modelMapper.map(model, Car.class)
                 : this.carRepository.findCarByDKN(model.getDkn());
 
-        client = this.clientRepository.findByPhoneNumber(model.getPhoneNumber()) == null
+
+        client = !this.clientRepository.findByPhoneNumber(model.getPhoneNumber())
+                .equals(this.modelMapper.map(model, Client.class))
+
                 ? this.modelMapper.map(model, Client.class)
                 : this.clientRepository.findByPhoneNumber(model.getPhoneNumber());
 
         client.setAddress(address);
+
+        this.homeAddressRepository.saveAndFlush(address);
+        this.clientRepository.saveAndFlush(client);
+        this.carRepository.saveAndFlush(car);
+
         policy.setCar(car);
         policy.setClient(client);
         policy.setStartDate(model.getDate());
@@ -128,9 +137,6 @@ public class PolicyServiceImpl implements PolicyService {
         policy.setPremium(model.getPremium());
         policy.setInsuredValue(model.getInsuredValue());
 
-        this.homeAddressRepository.saveAndFlush(address);
-        this.carRepository.saveAndFlush(car);
-        this.clientRepository.saveAndFlush(client);
         this.policyRepository.saveAndFlush(policy);
     }
 

@@ -1,6 +1,5 @@
 package projects.insurance.unit.validation;
 
-
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -24,23 +23,17 @@ public class PolicyValidatorTests {
     AddPolicyBindingModel model;
 
 
-
     @Before
-    public void init(){
+    public void init() {
         validator = new PolicyAddValidator(repository);
         model = new AddPolicyBindingModel();
         client = new Client("Andrei", "Petrov", "0896457511");
     }
 
     @Test
-    public void validate_PolicyWithCorrectCarData(){
+    public void validate_PolicyWithCorrectCarData() {
 
     }
-
-
-
-
-
 
 
 }
